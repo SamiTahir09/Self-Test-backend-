@@ -9,30 +9,31 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to database
+// Connect to DB
 connectDB();
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// CORS setup for deployed frontend
+// Frontend URL
 const frontendURL = "https://self-test-frontend-aoen.vercel.app";
 
+// Middleware
+app.use(express.json());
+
+// CORS setup
 app.use(cors({
     origin: frontendURL,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-
+    credentials: true
 }));
 
 // Routes
 app.use('/api/user', userRoutes);
 
-// Handle invalid routes
+// 404 handler
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found" });
 });
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
