@@ -19,9 +19,9 @@ app.use(express.json());
 const frontendURL = "https://self-test-frontend-dv51.vercel.app";
 
 app.use(cors({
-    origin: frontendURL,              // only allow your deployed frontend
+    origin: frontendURL,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true                 // needed if using cookies or auth headers
+
 }));
 
 // Routes
