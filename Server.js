@@ -9,29 +9,33 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect DB
+// Connect to DB
 connectDB();
 
-// Frontend URL
-const frontendURL = "https://self-test-frontend-aoen.vercel.app";
+// Frontend URLs (local + deployed)
+const allowedOrigins = [
+    'http://localhost:5173',  // local dev
+    'https://self-test-frontend-aoen.vercel.app' // deployed frontend
+];
 
-// CORS Middleware for ALL routes including preflight
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", frontendURL);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
-
-    // Handle OPTIONS preflight request
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-
-    next();
-});
-
-// Parse JSON
+// Middleware
 app.use(express.json());
+
+// CORS setup
+app.use(cors({
+    origin: function (origin, callback) {
+        // allow requests with no origin (like Postman)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
+}));
 
 // Routes
 app.use('/api/user', userRoutes);
