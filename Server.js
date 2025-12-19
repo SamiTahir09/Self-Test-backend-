@@ -16,7 +16,7 @@ connectDB();
 app.use(express.json());
 
 // CORS setup for deployed frontend
-const frontendURL = "https://self-test-frontend-dv51.vercel.app";
+const frontendURL = "https://self-test-frontend-aoen.vercel.app/";
 
 app.use(cors({
     origin: frontendURL,
