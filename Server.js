@@ -16,10 +16,17 @@ connectDB();
 app.use(express.json());
 
 
+
+const frontendURL = "https://self-test-frontend-dv51.vercel.app";
+
 app.use(cors({
-    origin: "https://self-test-frontend-dv51.vercel.app/",
+    origin: frontendURL,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true
 }));
+
+
+
 
 
 app.use('/api/user', userRoutes);
