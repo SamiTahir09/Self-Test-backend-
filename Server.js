@@ -14,8 +14,8 @@ connectDB();
 
 // Allowed origins
 const allowedOrigins = [
-    'http://localhost:5173', // Local frontend
-    'https://self-test-frontend-aoen.vercel.app' // Deployed frontend
+    'http://localhost:5173',
+    'https://self-test-frontend-aoen.vercel.app'
 ];
 
 // Middleware to parse JSON
