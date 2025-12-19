@@ -9,21 +9,29 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to DB
+// Connect DB
 connectDB();
 
 // Frontend URL
 const frontendURL = "https://self-test-frontend-aoen.vercel.app";
 
-// Middleware
-app.use(express.json());
+// CORS Middleware for ALL routes including preflight
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", frontendURL);
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
 
-// CORS setup
-app.use(cors({
-    origin: frontendURL,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true
-}));
+    // Handle OPTIONS preflight request
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(200);
+    }
+
+    next();
+});
+
+// Parse JSON
+app.use(express.json());
 
 // Routes
 app.use('/api/user', userRoutes);
