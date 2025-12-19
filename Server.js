@@ -17,7 +17,7 @@ app.use(express.json());
 
 
 app.use(cors({
-    origin: "https://self-test-frontend.vercel.app",
+    origin: "https://self-test-frontend-dv51.vercel.app/",
     credentials: true
 }));
 
