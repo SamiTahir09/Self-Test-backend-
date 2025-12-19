@@ -1,7 +1,7 @@
+// server.js
 import express from 'express';
 import userRoutes from './Routes/userRoutes.js';
 import { connectDB } from './Utils/Db.js';
-import cors from 'cors';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -9,33 +9,34 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to DB
+// Connect to database
 connectDB();
 
-// Frontend URLs (local + deployed)
+// Allowed origins
 const allowedOrigins = [
-    'http://localhost:5173',  // local dev
-    'https://self-test-frontend-aoen.vercel.app' // deployed frontend
+    'http://localhost:5173', // Local frontend
+    'https://self-test-frontend-aoen.vercel.app' // Deployed frontend
 ];
 
-// Middleware
+// Middleware to parse JSON
 app.use(express.json());
 
-// CORS setup
-app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin (like Postman)
-        if (!origin) return callback(null, true);
+// CORS middleware for all routes including preflight
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+    }
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
 
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true
-}));
+    // Handle preflight requests
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 // Routes
 app.use('/api/user', userRoutes);
