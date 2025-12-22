@@ -4,7 +4,7 @@
   "main": "Self-Test-backend-/Server.js",
   "type": "module",
   "scripts": {
-    "start": "node Self-Test-backend-/Server.js",
+    "start": "node Server.js",
     "dev": "nodemon Server.js"
   },
   "author": "",
