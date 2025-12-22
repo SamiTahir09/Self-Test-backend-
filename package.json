@@ -1,11 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "Backend/server.js",
+  "main": "backend/server.js",
   "type": "module",
   "scripts": {
-    "start": "node Backend/server.js",
-    "dev": "npx nodemon Backend/server.js"
+    "start": "node backend/server.js",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
