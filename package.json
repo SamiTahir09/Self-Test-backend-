@@ -1,11 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "Self-Test-backend-/server.js",
+  "main": "Self-Test-backend-/Server.js",
   "type": "module",
   "scripts": {
-    "start": "node Self-Test-backend-/server.js",
-    "dev": "nodemon Self-Test-backend-/server.js"
+    "start": "node Self-Test-backend-/Server.js",
+    "dev": "nodemon Server.js"
   },
   "author": "",
   "license": "ISC",
