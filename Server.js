@@ -8,19 +8,18 @@ dotenv.config();
 
 const app = express();
 
-
-
 connectDB();
-
 
 app.use(express.json());
 
 
-app.use(cors());
-
+app.use(cors({
+    origin: 'https://self-test-frontend-aoen.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 app.use('/api/user', userRoutes);
-
 
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found" });
