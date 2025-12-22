@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "backend/server.js",
+  "main": "Backend/server.js",
   "type": "module",
   "scripts": {
     "start": "node Backend/server.js",
