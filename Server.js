@@ -1,6 +1,4 @@
 import express from 'express';
-// import userRoutes from '../Routes/userRoutes.js';
-// import userRoutes from '../Routes/userRoutes.js';
 import { connectDB } from './Utils/Db.js';
 import dotenv from "dotenv";
 import cors from "cors";
